@@ -32,9 +32,23 @@ public class HelloWorld extends HttpServlet {
         response.setContentType("text/html");
         // actual logic goes here
         PrintWriter out = response.getWriter();
+        String nama = request.getParameter("nama");
         // out.println -> keluar kat browser
         // System.out.println() -> keluar kat console
-        out.println("<h1>" + message + "</h1>");
-    }
+        out.println("<h1>" + message + " " + nama + "</h1>");
+    }   
+    
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // set response content type
+        response.setContentType("text/html");
+        // actual logic goes here
+        PrintWriter out = response.getWriter();
+        String nama = request.getParameter("nama");
+        int umur = Integer.parseInt(request.getParameter("umur"));
+        // out.println -> keluar kat browser
+        // System.out.println() -> keluar kat console
+        out.println("<h1>Nama : " + nama + " Umur : " + umur + "</h1>");
+    }   
     
 }
