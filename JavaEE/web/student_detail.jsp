@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.StudentModel"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Student Details</h1>
-        Name : ${name}
+        
+        <form method="POST" action="student">
+            Student Id : <input type="text" name="id">
+            <button type="submit">Submit</button>
+        </form>
+        <h4><u>Student Details:</u></h4>
+        <%
+            if(request.getAttribute("stud")!=null){
+                StudentModel stud = (StudentModel) request.getAttribute("stud");  
+                out.print("Id : " + stud.id + ". <br>");    
+                out.print("Name : " + stud.name); 
+            }
+        %>
+        
     </body>
 </html>

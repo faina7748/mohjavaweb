@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import model.StudentModel;
 
 public final class student_005fdetail_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -44,6 +45,7 @@ public final class student_005fdetail_jsp extends org.apache.jasper.runtime.Http
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -51,9 +53,20 @@ public final class student_005fdetail_jsp extends org.apache.jasper.runtime.Http
       out.write("        <title>JSP Page</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
+      out.write("        ");
+
+          StudentModel stud = (StudentModel) request.getAttribute("stud");
+          //out.print(stud.name);
+        
+      out.write("\n");
+      out.write("        ");
+      out.write("\n");
       out.write("        <h1>Student Details</h1>\n");
+      out.write("        ID : ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${stud.id}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("      \n");
       out.write("        Name : ");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${stud.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("\n");
       out.write("    </body>\n");
       out.write("</html>\n");
