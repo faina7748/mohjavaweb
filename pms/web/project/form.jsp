@@ -4,7 +4,11 @@
     <div class="container-fluid">
         <legend>Project Registration</legend>
         <form method="post" action="/pms/project">
-            <% ProjectModel proj = (ProjectModel)request.getAttribute("proj");   %>
+            <% ProjectModel proj = (ProjectModel)request.getAttribute("proj");   
+               if(proj == null){
+                   proj = new ProjectModel();
+               }
+            %>
             <div class="row">
                 <div class="col-md-1">Title</div>
                 <div class="col-md-4"><input class="form-control" type="text" name="title" value="<%=proj.getTitle()%>"></div>
@@ -22,8 +26,11 @@
                 <div class="col-md-4">&nbsp;</div>
             </div>
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-4"><button class="btn btn-primary" type="submit">Save</button> <button class="btn btn-primary" type="reset">Reset</button></div>
+                <div class="col-md-1"><input type="hidden" name="id" value="<%=proj.getId()%>"></div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="submit"><% if(proj.getId()!=0){%>Update<% }else{ %>Save<% } %></button> 
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                </div>
             </div>
         </form>
     </div>    

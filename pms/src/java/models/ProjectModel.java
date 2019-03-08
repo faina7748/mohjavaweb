@@ -9,9 +9,31 @@ public class ProjectModel extends model{
     private String title;
     private String desc;
     
+    public ProjectModel(){
+        this.title = "";
+        this.desc = "";
+    }
+    
     public boolean insert(){
         String sql = "INSERT INTO project(title,description) " +
                      "VALUES('" + this.title + "','" + this.desc +"')";
+        
+        try{
+            Statement stmt = this.getStmt();
+            stmt.execute(sql); // insert, update, delete guna execute()           
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean update(int id){
+        
+        String sql = "UPDATE project SET "
+                     + "title = '" +  this.title + "', "
+                     + "description = '" + this.desc + "' "
+                     + "WHERE id = " + id;
         
         try{
             Statement stmt = this.getStmt();
@@ -34,7 +56,7 @@ public class ProjectModel extends model{
             return false;
         }
         return true;
-    }
+    }       
     
     // return one record
     public ProjectModel getOne(int id){ // return projectmodel
@@ -60,6 +82,35 @@ public class ProjectModel extends model{
     public ArrayList getAll(){
         ArrayList arr = new ArrayList();
         String sql = "SELECT * FROM project";        
+        
+        try{
+            Statement stmt = this.getStmt();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                ProjectModel proj = new ProjectModel();
+                proj.id = rs.getInt("id");
+                proj.title = rs.getString("title");
+                proj.desc = rs.getString("description");                
+                arr.add(proj);
+            }            
+        }catch (Exception e) {
+               e.printStackTrace();
+        }
+        return arr;
+    }
+    
+    public ArrayList search(String title, String desc){
+        ArrayList arr = new ArrayList();
+        String sql = "SELECT * FROM project WHERE 1 ";
+        if(! title.equals("")){
+            sql += "AND title LIKE '%" + title + "%'";
+        }
+        
+        if(! desc.equals("")){
+            sql += "AND description LIKE '%" + desc + "%'";        
+        }
+        System.out.println(sql);
         
         try{
             Statement stmt = this.getStmt();

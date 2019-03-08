@@ -45,14 +45,31 @@ public class Project extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String title = request.getParameter("title");
-        String desc = request.getParameter("description");
-        ProjectModel proj = new ProjectModel();
-        proj.setTitle(title);
-        proj.setDesc(desc);
-        proj.insert();
-        //request.getRequestDispatcher("project/list.jsp").forward(request, response); // forward bawa data tambahan
-        response.sendRedirect("project"); // tak bawa apa2 data
+        String srch = request.getParameter("search");
+        if(srch!=null){
+            String title = request.getParameter("title");
+            String desc = request.getParameter("desc");
+            ProjectModel proj = new ProjectModel();
+            ArrayList list = proj.search(title, desc); 
+            request.setAttribute("list", list); // output forward to form
+            request.getRequestDispatcher("project/list.jsp").forward(request, response);
+        }else{
+        
+            String id = request.getParameter("id");
+            String title = request.getParameter("title");
+            String desc = request.getParameter("description");
+            ProjectModel proj = new ProjectModel();
+            proj.setTitle(title);
+            proj.setDesc(desc);
+            if(id.equals("0")){
+                proj.insert();            
+            }else{
+                int id2 = Integer.parseInt(id);
+                proj.update(id2);
+            }
+            //request.getRequestDispatcher("project/list.jsp").forward(request, response); // forward bawa data tambahan
+            response.sendRedirect("project"); // tak bawa apa2 data
+        }
         
     }  
 }
