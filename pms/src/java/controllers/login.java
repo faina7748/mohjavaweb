@@ -36,6 +36,7 @@ public class login extends HttpServlet {
             sess.setAttribute("loggedin",true);
             sess.setAttribute("user", user); // save an obj into session
             
+            //response.sendRedirect("/pms/index.jsp");
             response.sendRedirect("/pms/project");
         }else{            
             // user x wujud
